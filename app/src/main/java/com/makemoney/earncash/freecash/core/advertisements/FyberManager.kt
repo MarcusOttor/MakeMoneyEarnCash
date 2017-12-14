@@ -11,6 +11,7 @@ import com.fyber.currency.VirtualCurrencyResponse
 import com.fyber.requesters.*
 import com.makemoney.earncash.freecash.core.managers.CoinsManager
 import com.makemoney.earncash.freecash.core.managers.PreferencesManager
+import com.makemoney.earncash.freecash.screens.BaseActivity
 import com.makemoney.earncash.freecash.screens.OffersActivity
 import kotlinx.android.synthetic.main.toolbar_back.*
 
@@ -53,10 +54,10 @@ class FyberManager(
             if (p0?.deltaOfCoins?.toInt() ?: 0 > 0) {
                 coinsManager.addCoins((p0?.deltaOfCoins?.toFloat()!! * 0.01f))
                 try {
-                    coinView.text = coinsManager.getCoins().toString()
+                    coinView.text = BaseActivity.format(coinsManager.getCoins())
                 } catch (ex: Exception) {
                     try {
-                        (activity as OffersActivity).coinsView.text = coinsManager.getCoins().toString()
+                        (activity as OffersActivity).coinsView.text = BaseActivity.format(coinsManager.getCoins())
                     } catch (ex: Exception) {}
                 }
                 Analytics.report(Analytics.OFFER, Analytics.FYBER, Analytics.REWARD)
